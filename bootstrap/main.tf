@@ -1,6 +1,6 @@
 terraform {
   required_version = ">= 1.10.0"
-  backend "local" {} 
+  backend "local" {}
 }
 
 provider "aws" {
@@ -10,7 +10,7 @@ provider "aws" {
 # The single source of truth for your remote state
 resource "aws_s3_bucket" "terraform_state" {
   # MUST be globally unique. Change this name:
-  bucket = "secure-threetier-tfstate-123456789" 
+  bucket = "secure-threetier-tfstate-123456789"
 }
 
 resource "aws_s3_bucket_versioning" "terraform_state" {

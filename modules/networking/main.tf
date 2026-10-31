@@ -60,6 +60,6 @@ resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat[count.index].id
   subnet_id     = aws_subnet.public[count.index].id
 
-  tags = { Name = "${var.environment}-nat-${count.index}" }
+  tags       = { Name = "${var.environment}-nat-${count.index}" }
   depends_on = [aws_internet_gateway.igw]
 }

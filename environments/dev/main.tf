@@ -5,13 +5,13 @@ compute and database modules rely on module.networking and module.compute
 
 terraform {
   required_version = ">= 1.10.0"
-  
+
   backend "s3" {
     bucket       = "secure-threetier-tfstate-123456789" # Ensure this is your actual bucket name
     key          = "dev/network/terraform.tfstate"
     region       = "us-east-1"
     encrypt      = true
-    use_lockfile = true 
+    use_lockfile = true
   }
 }
 
@@ -25,7 +25,7 @@ module "networking" {
   environment = "dev"
   vpc_cidr    = "10.0.0.0/16"
   azs         = ["us-east-1a", "us-east-1b"]
-  single_nat  = true  
+  single_nat  = true
 }
 
 module "compute" {
@@ -80,6 +80,6 @@ module "cicd" {
   source = "../../modules/cicd"
 
   environment      = "dev"
-  github_repo_name = "Prathamesh-Wadile/secure-threetier-platform" # <-- Change this
+  github_repo_name = "prathamesh-wadile/secure-threetier-platform" # <-- Change this
 }
 

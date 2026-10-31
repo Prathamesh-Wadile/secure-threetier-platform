@@ -17,10 +17,10 @@ locals {
 resource "aws_s3_bucket" "buckets" {
   for_each = local.buckets
   bucket   = "${var.environment}-myapp-${each.key}-${random_id.bucket_suffix.hex}"
-  
+
   # Prevents accidental deletion of the bucket in production, 
   # but allows easy teardown in dev.
-  force_destroy = true 
+  force_destroy = true
 }
 
 # 1. Enforce Versioning
@@ -58,10 +58,10 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 # 4. Enforce TLS (HTTPS) Only via Bucket Policy
 data "aws_iam_policy_document" "tls_only" {
   for_each = local.buckets
-  
+
   statement {
-    sid     = "EnforceTLSv12orHigher"
-    effect  = "Deny"
+    sid    = "EnforceTLSv12orHigher"
+    effect = "Deny"
     principals {
       type        = "AWS"
       identifiers = ["*"]
@@ -83,7 +83,7 @@ resource "aws_s3_bucket_policy" "tls_only_policy" {
   for_each = local.buckets
   bucket   = aws_s3_bucket.buckets[each.key].id
   policy   = data.aws_iam_policy_document.tls_only[each.key].json
-  
+
   depends_on = [aws_s3_bucket_public_access_block.public_access]
 }
 

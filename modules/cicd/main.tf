@@ -1,8 +1,8 @@
 # Create the Identity Provider in AWS
 resource "aws_iam_openid_connect_provider" "github" {
-  url             = "https://token.actions.githubusercontent.com"
-  client_id_list  = ["sts.amazonaws.com"]
-  
+  url            = "https://token.actions.githubusercontent.com"
+  client_id_list = ["sts.amazonaws.com"]
+
   # Official GitHub CA Thumbprints
   thumbprint_list = [
     "6938fd4d98bab03faadb97b34396831e3780aea1",
@@ -24,8 +24,8 @@ resource "aws_iam_role" "github_actions" {
       }
       Condition = {
         StringLike = {
-          # Strict boundary: Only your specific repository can assume this role
-          "token.actions.githubusercontent.com:sub" = "repo:${var.github_repo_name}:*"
+          # Absorbs the @106071455 and @1440939038 IDs injected by GitHub
+          "token.actions.githubusercontent.com:sub" = "repo:Prathamesh-Wadile*/secure-threetier-platform*"
         }
         StringEquals = {
           "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"

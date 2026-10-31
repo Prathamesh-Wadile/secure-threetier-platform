@@ -51,23 +51,23 @@ resource "aws_secretsmanager_secret_version" "db_credentials_version" {
 
 # The actual RDS instance
 resource "aws_db_instance" "postgres" {
-  identifier             = "${var.environment}-postgres"
-  engine                 = "postgres"
-  engine_version         = "16.3" 
-  instance_class         = var.db_instance_class
-  allocated_storage      = 20
-  
-  db_name                = "appdb"
-  username               = "dbadmin"
-  password               = random_password.db_password.result
-  
+  identifier        = "${var.environment}-postgres"
+  engine            = "postgres"
+  engine_version    = "16.3"
+  instance_class    = var.db_instance_class
+  allocated_storage = 20
+
+  db_name  = "appdb"
+  username = "dbadmin"
+  password = random_password.db_password.result
+
   db_subnet_group_name   = aws_db_subnet_group.main.name
   vpc_security_group_ids = [aws_security_group.db.id]
   multi_az               = var.multi_az
-  
-  storage_encrypted      = true
-  
+
+  storage_encrypted = true
+
   # Crucial for a lab environment to allow fast teardowns with 'terraform destroy'
-  skip_final_snapshot    = true 
-  apply_immediately      = true
+  skip_final_snapshot = true
+  apply_immediately   = true
 }

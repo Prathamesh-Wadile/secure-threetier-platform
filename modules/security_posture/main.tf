@@ -32,8 +32,8 @@ resource "aws_iam_role" "config_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
+      Action    = "sts:AssumeRole"
+      Effect    = "Allow"
       Principal = { Service = "config.amazonaws.com" }
     }]
   })
@@ -51,7 +51,7 @@ resource "random_id" "config_suffix" {
 
 resource "aws_s3_bucket" "config_bucket" {
   bucket        = "${var.environment}-awsconfig-${random_id.config_suffix.hex}"
-  force_destroy = true 
+  force_destroy = true
 }
 
 # Allow AWS Config to read the ACL and write to the S3 bucket

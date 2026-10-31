@@ -29,7 +29,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu" {
   threshold           = 80
   alarm_description   = "Triggers if ASG CPU utilization exceeds 80% for 10 minutes"
   alarm_actions       = [aws_sns_topic.alerts.arn]
-  
+
   dimensions = {
     AutoScalingGroupName = var.asg_name
   }
@@ -55,7 +55,7 @@ resource "aws_cloudwatch_metric_alarm" "high_5xx_errors" {
 # --- CLOUDWATCH DASHBOARD ---
 resource "aws_cloudwatch_dashboard" "main" {
   dashboard_name = "${var.environment}-SRE-Dashboard"
-  
+
   dashboard_body = jsonencode({
     widgets = [
       {

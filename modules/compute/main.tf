@@ -61,8 +61,8 @@ resource "aws_iam_role" "app_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
+      Action    = "sts:AssumeRole"
+      Effect    = "Allow"
       Principal = { Service = "ec2.amazonaws.com" }
     }]
   })
@@ -86,7 +86,7 @@ resource "aws_lb" "app" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
   subnets            = var.public_subnet_ids
-  
+
   tags = { Name = "${var.environment}-app-alb" }
 }
 
@@ -161,7 +161,7 @@ resource "aws_autoscaling_group" "app" {
   name                = "${var.environment}-app-asg"
   vpc_zone_identifier = var.private_app_subnet_ids
   target_group_arns   = [aws_lb_target_group.app.arn]
-  
+
   min_size         = 1
   max_size         = 3
   desired_capacity = 2
