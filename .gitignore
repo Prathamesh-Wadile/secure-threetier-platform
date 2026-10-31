@@ -16,3 +16,7 @@ crash.*.log
 .txt
 .png
 .jpg
+# Excluded local files
+AWS VPC Network Traffic Flow.png
+diagram.jpg
+note.txt
