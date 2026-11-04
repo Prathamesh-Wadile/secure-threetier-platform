@@ -68,5 +68,3 @@ terraform destroy
 ```
 *Note: Destroying the infrastructure will also remove the Terraform-managed OIDC IAM roles. You will need to recreate the Identity Provider connection for future automated pipeline runs.*
 
-## 🧠 Lessons Learned
-A significant portion of this project was dedicated to mastering AWS IAM Trust Policies. Resolving OIDC authentication failures required in-depth troubleshooting of case-sensitivity mismatches, internal GitHub ID injections, and dynamic TLS thumbprint synchronization between Terraform and AWS IAM. 
